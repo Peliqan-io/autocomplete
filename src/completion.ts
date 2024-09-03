@@ -52,7 +52,8 @@ export interface Completion {
   /// together, with a heading above them. Options without section
   /// will appear above all sections. A string value is equivalent to
   /// a `{name}` object.
-  section?: string | CompletionSection
+  // Custom render function for the completion item
+  render?: (completion:Completion, state: EditorState, view: EditorView) => HTMLDivElement;
 }
 
 /// The type returned from

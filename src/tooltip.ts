@@ -11,6 +11,7 @@ function optionContent(config: Required<CompletionConfig>): OptionContentSource[
   let content = config.addToOptions.slice() as {render: OptionContentSource, position: number}[]
   if (config.icons) content.push({
     render(completion: Completion) {
+        if (completion.render) return null;
       let icon = document.createElement("div")
       icon.classList.add("cm-completionIcon")
       if (completion.type)
@@ -22,6 +23,7 @@ function optionContent(config: Required<CompletionConfig>): OptionContentSource[
   })
   content.push({
     render(completion: Completion, _s: EditorState, _v: EditorView, match: readonly number[]) {
+        if (completion.render) return completion.render(completion, _s ,_v );
       let labelElt = document.createElement("span")
       labelElt.className = "cm-completionLabel"
       let label = completion.displayLabel || completion.label, off = 0
